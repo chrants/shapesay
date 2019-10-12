@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace shapesay
 {
@@ -8,9 +9,10 @@ namespace shapesay
         {
         }
 
-        public override string Shout()
+        string ShoutSplitMessage()
         {
             var messageClone = new String(message);
+
             var messageLineLength = CONSOLE_WIDTH - 4;
             var height = message.Length / messageLineLength;
             var edge = new String('#', CONSOLE_WIDTH) + '\n';
@@ -27,6 +29,37 @@ namespace shapesay
             }
 
             return edge + midLine + middle + midLine + edge;
+        }
+
+
+        string ShoutPreserveLine(int maxWidth, string line)
+        {
+            return $"# {line} #\n";
+        }
+
+        string ShoutPreserveMessage()
+        {
+            var messageLines = message.Split('\n');
+            var maxLength = messageLines.Select(line => line.Length).Max();
+            var middle = messageLines.Select(line => ShoutPreserveLine(maxLength, line)).Aggregate((a, b) => a + b);
+
+            var edge = new String('#', maxLength + 4) + '\n';
+            var midLine = "# " + new String(' ', maxLength) + " #\n";
+            return edge + midLine + middle + midLine + edge;
+
+
+        }
+
+        public override string Shout()
+        {
+            if (message.Contains('\n'))
+            {
+                return ShoutPreserveMessage();
+            }
+            else
+            {
+                return ShoutSplitMessage();
+            }
         }
     }
 }
