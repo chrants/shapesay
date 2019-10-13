@@ -12,7 +12,6 @@ namespace shapesay
                 _ => new Shapeless(message)
             };
 
-
         public static void Say(string[] args)
         {
             string message = args[0].Replace("\r", "");
