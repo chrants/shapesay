@@ -11,12 +11,12 @@ namespace shapesay
 
             string[] names = {
                 "Burke", "Connor", "Frank", "Everett",
-                "Albert", "George", "Harris", "David", "Thanh",
-                "Christian", "Cat", "Dog", "Joe"
+                "Albert", "George", "Harris", "David", "Bob",
+                "Cat", "Dog", "Joe"
             };
 
             var salaries = new[] { new { Name = "Burke", Pay = 8000 }, new { Name = "Frank", Pay = 500 },
-                                   new { Name = "Thanh", Pay = 4400 }, new { Name = "Christian", Pay = 10000 } };
+                                   new { Name = "Dog", Pay = 4400 }, new { Name = "Cat", Pay = 10000 } };
 
             var output = String.Join("\n",
                     (from salaryGroup in
@@ -36,11 +36,11 @@ namespace shapesay
                          orderby salaryGroups.Key switch { "Dirt Poor" => 0, "Middle Class" => 1, "Filthy Rich" => 2, _ => -1 }
                          select new { salaryGroups.Key, Group = String.Join(", ", salaryGroups) }
                     )
-                     select String.Join("\n", $"{salaryGroup.Key}:\t {salaryGroup.Group}"))
+                     select $"{salaryGroup.Key}: {salaryGroup.Group}")
                 );
 
-            string[] fakeArgs = { output, "-Rect", "-Rect", "-Rect" };
-            ShapeSay.Say(fakeArgs);
+            // string[] fakeArgs = { output, "-Rect", "-Rect", "-Rect" };
+            ShapeSay.Say(args);
         }
     }
 }

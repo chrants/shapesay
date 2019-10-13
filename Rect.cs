@@ -31,23 +31,22 @@ namespace shapesay
             return edge + midLine + middle + midLine + edge;
         }
 
-
         string ShoutPreserveLine(int maxWidth, string line)
         {
-            return $"# {line} #\n";
+            return $"# {line}{new String(' ', maxWidth - line.Length)} #\n";
         }
 
         string ShoutPreserveMessage()
         {
             var messageLines = message.Split('\n');
             var maxLength = messageLines.Select(line => line.Length).Max();
-            var middle = messageLines.Select(line => ShoutPreserveLine(maxLength, line)).Aggregate((a, b) => a + b);
+            var middle = messageLines.Where(line => line.Length > 0)
+                                    .Select(line => ShoutPreserveLine(maxLength, line))
+                                    .Aggregate((a, b) => a + b);
 
             var edge = new String('#', maxLength + 4) + '\n';
             var midLine = "# " + new String(' ', maxLength) + " #\n";
             return edge + midLine + middle + midLine + edge;
-
-
         }
 
         public override string Shout()

@@ -15,7 +15,7 @@ namespace shapesay
 
         public static void Say(string[] args)
         {
-            string message = args[0];
+            string message = args[0].Replace("\r", "");
             for (var idx = 1; idx < args.Length; idx++)
             {
                 var arg = args[idx];
