@@ -9,6 +9,7 @@ namespace shapesay
             shapeName switch
             {
                 "Rect" => new Rect(message),
+                "Tri" => new Triangle(message),
                 _ => new Shapeless(message)
             };
 
