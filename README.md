@@ -26,7 +26,9 @@ Back-track to previous shape line with -/
 ![Shapesay abstract art - Triangle in slanted rectangle](img/shapesay_advanced_flags.png)
 
 Combined with *nix package figlet.
+
 ![Shapesay abstract art - Rectangles and inverse combined with text in figlet](img/combined_with_figlet.png)
 
 Going crazy
+
 ![Shapesay abstract art - Combining a bunch of stuff going crazy](img/go_crazy.png)
