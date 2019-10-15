@@ -17,9 +17,15 @@ Invert random shape content with -InvRand
 
 Replace content with "sparkles" with -Spark
 
+Pad lines with spaces on the right side to match the longest line with -Pad
+
 Add text anywhere in between shapes.
 
 Back-track to previous shape line with -/
+
+Append expressions horizontally with `EXPR_R + EXPRL`
+
+Group expressions with `"(" EXPR ")"`
 
 ### Examples:
 
@@ -46,3 +52,11 @@ shapesay "abcd wat is this" -Tri -Rect -Sparkle -Ital "`figlet -c wow`" -Rect -I
 ```
 
 ![Shapesay abstract art - Combining a bunch of stuff going crazy](img/go_crazy.png)
+
+Oh no, is this too far?? 😄
+
+```sh
+shapesay "`figlet wow this is pretty cool stuff`" -Rect + "hello world" -Pad "(" "something haha" -Rect -Rect -Ital -Pad "(" "wat no way" -Rect -/ " wat no way" ")" + "(" "wat" -Tri ")" -Pad + "(" "Tri" -Tri ")" ")" -Rect
+```
+
+![Shapesay abstract art - Combining a bunch of stuff going SUPER crazy](img/really_crazy.png)
