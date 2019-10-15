@@ -21,6 +21,7 @@ Add text anywhere in between shapes.
 
 Back-track to previous shape line with -/
 
-Examples:
+### Examples:
 
+![Shapesay abstract art - Triangle in slanted rectangle](img/shapesay_advanced_flags.png)
 
