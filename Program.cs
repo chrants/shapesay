@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace shapesay
+﻿namespace shapesay
 {
     class Program
     {

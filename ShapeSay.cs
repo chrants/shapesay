@@ -10,11 +10,14 @@ namespace shapesay
             {
                 "Rect" => new Rect(message),
                 "Tri" => new Triangle(message),
+                "Sparkle" => new Sparkle(message),
+                "/" => new Shapeless(message.TrimEnd('\n')),
                 _ => new Shapeless(message)
             };
 
         public static void Say(string[] args)
         {
+            // format of args is MESSAGE (MESSAGE|-SHAPE)*
             string message = args[0].Replace("\r", "");
             for (var idx = 1; idx < args.Length; idx++)
             {
@@ -22,6 +25,10 @@ namespace shapesay
                 if (arg.StartsWith('-'))
                 {
                     message = ArgsToShape(arg.Substring(1), message).Shout();
+                }
+                else
+                {
+                    message += arg;
                 }
             }
             Console.Write(message);

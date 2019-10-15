@@ -18,6 +18,8 @@ namespace shapesay
 
             var top = new String(' ', maxWidth / 2) + "#\n"
                     + new String(' ', (maxWidth) / 2 - 1) + "# #\n";
+            var bottom = new String('#', maxWidth) + '\n';
+
             var middle = "";
             for (var idx = 1; idx <= numLines; idx++)
             {
@@ -25,32 +27,70 @@ namespace shapesay
                 var currentLineLength = Math.Min(messageClone.Length, currentLineCharsLength);
                 var lineMessage = messageClone.Substring(0, currentLineLength);
                 messageClone = messageClone.Substring(currentLineLength);
-                var lineWithLeftPad = new String(' ', maxWidth / 2 - idx - 1) + "# " + lineMessage;
-                var line = lineWithLeftPad + new String(' ', currentLineCharsLength - currentLineLength) + " #\n";
+                var line = new String(' ', maxWidth / 2 - idx - 1) + "# "
+                         + lineMessage
+                         + new String(' ', currentLineCharsLength - currentLineLength) + " #\n";
                 middle += line;
             }
-            var bottom = new String('#', maxWidth) + '\n';
 
             return top + middle + bottom;
         }
 
-        // string ShoutPreserveLine(int maxWidth, string line)
-        // {
-        //     return $"# {line}{new String(' ', maxWidth - line.Length)} #\n";
-        // }
+        string ShoutPreserveLine(int maxWidth, string line)
+        {
+            return $"{line}{new String(' ', maxWidth - line.Length)}";
+        }
 
         string ShoutPreserveMessage()
         {
-            return ShoutSplitMessage(); // doesn't preserve lines atm
-            // var messageLines = message.Split('\n');
-            // var maxLength = messageLines.Select(line => line.Length).Max();
-            // var middle = messageLines.Where(line => line.Length > 0)
-            //                         .Select((line, idx) => ShoutPreserveLine(maxLength, line))
-            //                         .Aggregate((a, b) => a + b);
+            var messageLines = message.Split('\n');
+            var widthAndHeight = Math.Max(messageLines.Select(line => line.Length).Max(), messageLines.Length);
+            var middleBase = messageLines.Where(line => line.Length > 0)
+                                    .Select((line, idx) => ShoutPreserveLine(widthAndHeight, line))
+                                    .ToArray();
 
-            // var edge = new String('#', maxLength + 4) + '\n';
-            // var midLine = "# " + new String(' ', maxLength) + " #\n";
-            // return edge + midLine + middle + midLine + edge;
+            var triangleTopHeight = widthAndHeight / 2 + 1;
+            var triangleBaseWidth = 3 * widthAndHeight + 2;
+
+            var offset = widthAndHeight % 2 == 1 ? 0 : 1;
+
+            var tip = new String(' ', triangleBaseWidth / 2) + "#\n";
+            var triangleTop = "";
+            for (var idx = 1; idx < triangleTopHeight; idx++)
+            {
+                var currentInsideWidth = 2 * idx - 1;
+                var padding = new String(' ', triangleBaseWidth / 2 - idx);
+                var insideLine = "#" + new String(' ', currentInsideWidth) + "#";
+                var line = padding + insideLine + padding + '\n';
+                triangleTop += line;
+            }
+
+            var triangleMiddle = "";
+            for (var idx = 0; idx < widthAndHeight; idx++)
+            {
+                var paddingOutside = new String(' ', widthAndHeight - idx);
+                var paddingInside = new String(' ', idx);
+
+                string insideLine;
+                if (idx < middleBase.Length)
+                {
+                    insideLine = middleBase[idx];
+                }
+                else
+                {
+                    insideLine = ShoutPreserveLine(widthAndHeight, "");
+                }
+
+                var line = paddingOutside + "#"
+                         + paddingInside
+                         + insideLine + new String(' ', offset)
+                         + paddingInside + "#\n";
+                triangleMiddle += line;
+            }
+
+            var bottom = new String('#', triangleBaseWidth + offset) + '\n';
+
+            return tip + triangleTop + triangleMiddle + bottom;
         }
 
         public override string Shout()
