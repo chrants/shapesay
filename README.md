@@ -23,17 +23,20 @@ Back-track to previous shape line with -/
 
 ### Examples:
 
+Abstract art
+
 ```sh
 shapesay "wow this is pretty cool stuff" -Tri -Inv -/ " Pretty cool indeed" -Rect
 ```
 
 ![Shapesay abstract art - Triangle in slanted rectangle](img/shapesay_advanced_flags.png)
 
+Combined with *nix package figlet.
+
 ```sh
 shapesay "`figlet wow this is pretty cool stuff`" -Inv  -Rect -Inv -Rect
 ```
 
-Combined with *nix package figlet.
 ![Shapesay abstract art - Rectangles and inverse combined with text in figlet](img/combined_with_figlet.png)
 
 Going crazy
