@@ -11,6 +11,9 @@ namespace shapesay
                 "Rect" => new Rect(message),
                 "Tri" => new Triangle(message),
                 "Sparkle" => new Sparkle(message),
+                "Inv" => new Inverse(message),
+                "InvRand" => new InvRand(message),
+                "Ital" => new Italicize(message),
                 "/" => new Shapeless(message.TrimEnd('\n')),
                 _ => new Shapeless(message)
             };
